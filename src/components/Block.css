@@ -1,6 +1,9 @@
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   padding: 20px;
   background-color: #eeeeee;
   margin-top: 20px;
@@ -21,6 +24,20 @@
   max-height: 100%;
 }
 
+.left {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #eeeeee;
+  margin-top: 20px;
+  position: relative;
+  width: 90%;
+}
+
+.right {
+  width: 5%;
+}
+
 .upper {
   display: flex;
   width: 100%;
@@ -33,20 +50,20 @@
   padding: 0px 10px;
 }
 .lower-left {
-  width: 30%;
+  width: 20%;
   font-weight: bold;
   /* background-color: pink; */
 }
 .lower-right {
-  width: 70%;
+  width: 80%;
   /* background-color: aqua; */
 }
 .upper-right {
-  width: 70%;
+  width: 80%;
   /* background-color: magenta; */
 }
 .upper-left {
-  width: 30%;
+  width: 20%;
   font-weight: bold;
   /* background-color: blue; */
 }

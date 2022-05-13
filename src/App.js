@@ -5,6 +5,7 @@ import Block from "./components/Block";
 import Select from "react-select";
 import { RadioGroup, Radio } from "react-radio-group";
 import { Spinner } from "react-activity";
+import Snackbar from "@mui/material/Snackbar";
 import "react-activity/dist/library.css";
 const config = new Configuration({
   apiKey: process.env.REACT_APP_APIKEY,
@@ -17,6 +18,7 @@ function App() {
   const [selectedEngine, setSelectedEngine] = useState();
   const [sort, setSort] = useState("desc");
   const [answerLoading, setAnswerLoading] = useState();
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState([
     // {
     //   prompt: "write a poem",
@@ -132,12 +134,19 @@ function App() {
   };
 
   const handleSave = () => {
+    setOpen(true);
     localStorage.setItem("responses", JSON.stringify(data));
   };
 
   const handleClearResponses = () => {
     setData([]);
     localStorage.removeItem("responses");
+  };
+
+  const deleteResponse = (id) => {
+    let temp = data.filter((item) => item.id !== id);
+    setData(temp);
+    localStorage.setItem("responses", JSON.stringify(temp));
   };
 
   return (
@@ -206,6 +215,13 @@ function App() {
           >
             Save Responses
           </button>
+          <Snackbar
+            open={open}
+            autoHideDuration={1000}
+            onClose={() => setOpen(false)}
+            message="Reponses Saved"
+            // action={action}
+          />
           <div className="radio-group">
             <RadioGroup
               onChange={handleRadioChange}
@@ -227,7 +243,7 @@ function App() {
         {data.length > 0 ? (
           <>
             {data.map((item) => (
-              <Block item={item} />
+              <Block item={item} deleteResponse={deleteResponse} />
             ))}
           </>
         ) : (
